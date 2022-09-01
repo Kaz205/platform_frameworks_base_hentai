@@ -985,6 +985,22 @@
         <!-- y-intercept --> <item>0.9809063061</item>
     </string-array>
 
+    <!-- Build properties from a GMS certified device against current platform SPL level -->
+    <string-array name="config_certifiedBuildProperties" translatable="false">
+      <!--
+        <item>Build.DEVICE</item>
+        <item>Build.PRODUCT</item>
+        <item>Build.MODEL</item>
+        <item>Build.FINGERPRINT</item>
+      -->
+    </string-array>
+
+    <!-- Build fingerprint from stock ROM -->
+    <string name="config_stockFingerprint" translatable="false"></string>
+
+    <!-- Device model (Build.MODEL) to spoof for netflix, if not empty -->
+    <string name="config_netflixSpoofModel" translatable="false"></string>
+
     <string-array name="config_reduceBrightColorsCoefficients">
         <!-- a-coefficient --> <item>-0.000000000000001</item>
         <!-- b-coefficient --> <item>-0.955555555555554</item>
