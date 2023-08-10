@@ -301,6 +301,7 @@ import com.android.server.usage.StorageStatsService;
 import com.android.server.usage.UsageStatsService;
 import com.android.server.usb.UsbService;
 import com.android.server.utils.TimingsTraceAndSlog;
+import com.android.server.custom.CustomDeviceConfigService;
 import com.android.server.vcn.VcnLocation;
 import com.android.server.vibrator.VibratorManagerService;
 import com.android.server.voiceinteraction.VoiceInteractionManagerService;
@@ -2850,6 +2851,11 @@ public final class SystemServer implements Dumpable {
 
             t.traceBegin("StartMediaMetricsManager");
             mSystemServiceManager.startService(MediaMetricsManagerService.class);
+            t.traceEnd();
+
+            // CustomDeviceConfigService
+            t.traceBegin("StartCustomDeviceConfigService");
+            mSystemServiceManager.startService(CustomDeviceConfigService.class);
             t.traceEnd();
 
             if (SystemProperties.getBoolean(
