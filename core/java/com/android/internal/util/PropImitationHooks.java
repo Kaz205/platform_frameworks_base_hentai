@@ -68,7 +68,13 @@ public class PropImitationHooks {
         "PIXEL_2019_MIDYEAR_PRELOAD",
         "PIXEL_2019_PRELOAD",
         "PIXEL_2020_EXPERIENCE",
-        "PIXEL_2020_MIDYEAR_EXPERIENCE"
+        "PIXEL_2020_MIDYEAR_EXPERIENCE",
+        "PIXEL_2021_EXPERIENCE",
+        "PIXEL_2021_MIDYEAR_EXPERIENCE",
+        "PIXEL_2022_EXPERIENCE",
+        "PIXEL_2022_MIDYEAR_EXPERIENCE",
+        "PIXEL_2023_EXPERIENCE",
+        "PIXEL_2023_MIDYEAR_EXPERIENCE"
     );
 
     private static final String PROP_SECURITY_PATCH = "persist.sys.pihooks.security_patch";
