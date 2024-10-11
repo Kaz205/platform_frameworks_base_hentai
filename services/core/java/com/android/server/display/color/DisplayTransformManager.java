@@ -93,6 +93,7 @@ public class DisplayTransformManager {
 
     private static final float COLOR_SATURATION_NATURAL = 1.0f;
     private static final float COLOR_SATURATION_BOOSTED = 1.1f;
+    private static final float COLOR_SATURATION_SATURATED = 0.9f;
 
     /**
      * Display color modes defined by DisplayColorSetting in
@@ -278,7 +279,7 @@ public class DisplayTransformManager {
             applySaturation(COLOR_SATURATION_BOOSTED);
             setDisplayColor(DISPLAY_COLOR_MANAGED, compositionColorMode);
         } else if (colorMode == ColorDisplayManager.COLOR_MODE_SATURATED) {
-            applySaturation(COLOR_SATURATION_NATURAL);
+            applySaturation(COLOR_SATURATION_SATURATED);
             setDisplayColor(DISPLAY_COLOR_UNMANAGED, compositionColorMode);
         } else if (colorMode == ColorDisplayManager.COLOR_MODE_AUTOMATIC) {
             applySaturation(COLOR_SATURATION_NATURAL);
