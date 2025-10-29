@@ -341,6 +341,6 @@ public class PropImitationHooks {
     }
 
     public static void dlog(String msg) {
-        if (DEBUG) Log.d(TAG, "[" + sProcessName + "] " + msg);
+        Log.d(TAG, "[" + sProcessName + "] " + msg);
     }
 }
