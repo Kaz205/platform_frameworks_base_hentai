@@ -202,10 +202,7 @@ public class DreamTile extends QSTileImpl<QSTile.BooleanState> {
 
     @Override
     public boolean isAvailable() {
-        // Only enable for devices that have dreams for the user(s) that can dream.
-        // For now, restrict to debug users.
-        return Build.isDebuggable()
-                && mDreamSupported
+        return mDreamSupported
                 && (!mDreamOnlyEnabledForDockUser || mUserTracker.getUserInfo().isMain());
     }
 
