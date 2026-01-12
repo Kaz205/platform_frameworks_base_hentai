@@ -45,6 +45,8 @@ public class PropImitationHooks {
 
     private static final String PACKAGE_ARCORE = "com.google.ar.core";
     private static final String PACKAGE_FINSKY = "com.android.vending";
+    private static final String PACKAGE_GLASSES_COMPANION = "com.google.android.glasses.companion";
+    private static final String PACKAGE_GLASSES_CORE = "com.google.android.glasses.core";
     private static final String PACKAGE_GMS = "com.google.android.gms";
     private static final String PROCESS_GMS_UNSTABLE = PACKAGE_GMS + ".unstable";
     private static final String PACKAGE_GPHOTOS = "com.google.android.apps.photos";
@@ -57,6 +59,18 @@ public class PropImitationHooks {
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY =
             ComponentName.unflattenFromString(
                     "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
+
+    private static final Map<String, String> sPixelTenBetaProps =
+            Map.of(
+                    "PRODUCT", "mustang_beta",
+                    "DEVICE", "mustang",
+                    "HARDWARE", "mustang",
+                    "MANUFACTURER", "Google",
+                    "BRAND", "google",
+                    "MODEL", "Pixel 10 Pro XL",
+                    "ID", "ZP11.251212.007",
+                    "FINGERPRINT",
+                            "google/mustang_beta/mustang:CANARY/ZP11.251212.007/14649019:user/release-keys");
 
     private static final Map<String, String> sPixelTenProps =
             Map.of(
@@ -167,6 +181,15 @@ public class PropImitationHooks {
                                     + processName);
                     setProps(sPixelTenProps);
                 }
+                return;
+            case PACKAGE_GLASSES_COMPANION:
+            case PACKAGE_GLASSES_CORE:
+                dlog(
+                        "Spoofing Pixel 10 Pro XL (Beta) for: "
+                                + packageName
+                                + " process: "
+                                + processName);
+                setProps(sPixelTenBetaProps);
                 return;
             case PACKAGE_ARCORE:
                 if (!sStockFp.isEmpty()) {
