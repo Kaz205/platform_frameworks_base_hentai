@@ -45,21 +45,46 @@ import androidx.compose.ui.unit.dp
 import com.android.systemui.common.ui.compose.Icon
 import com.android.systemui.statusbar.policy.ui.dialog.viewmodel.AmbientMusicModeTileViewModel
 
+enum class AmbientMusicModeTileType {
+    // The standard tile type. Will be used when the tile is shown in a dialog.
+    DEFAULT,
+
+    // Special types used for the details view.
+    START_TILE,
+    MIDDLE_TILE,
+    END_TILE,
+    ONLY_TILE,
+}
+
 @Composable
-fun AmbientMusicModeTile(viewModel: AmbientMusicModeTileViewModel, modifier: Modifier = Modifier) {
+fun AmbientMusicModeTile(
+    viewModel: AmbientMusicModeTileViewModel,
+    modifier: Modifier = Modifier,
+    type: AmbientMusicModeTileType = AmbientMusicModeTileType.DEFAULT,
+) {
     val tileColor: Color by
         animateColorAsState(
-            if (viewModel.enabled) MaterialTheme.colorScheme.primary
-            else MaterialTheme.colorScheme.surfaceVariant
+            when {
+                viewModel.enabled -> MaterialTheme.colorScheme.primary
+                type == AmbientMusicModeTileType.DEFAULT -> MaterialTheme.colorScheme.surfaceVariant
+                else -> MaterialTheme.colorScheme.primaryContainer
+            }
         )
     val contentColor: Color by
         animateColorAsState(
-            if (viewModel.enabled) MaterialTheme.colorScheme.onPrimary
-            else MaterialTheme.colorScheme.onSurfaceVariant
+            when {
+                viewModel.enabled -> MaterialTheme.colorScheme.onPrimary
+                type == AmbientMusicModeTileType.DEFAULT -> MaterialTheme.colorScheme.onSurfaceVariant
+                else -> MaterialTheme.colorScheme.onSurface
+            }
         )
 
     CompositionLocalProvider(LocalContentColor provides contentColor) {
-        Surface(color = tileColor, shape = RoundedCornerShape(16.dp), modifier = modifier) {
+        Surface(
+            color = tileColor,
+            shape = AmbientMusicModeTileShape.getTileShape(type),
+            modifier = modifier,
+        ) {
             Row(
                 modifier =
                     Modifier.combinedClickable(
@@ -98,4 +123,22 @@ fun AmbientMusicModeTile(viewModel: AmbientMusicModeTileViewModel, modifier: Mod
 
 private fun Modifier.tileMarquee(): Modifier {
     return this.basicMarquee(iterations = 1)
+}
+
+private object AmbientMusicModeTileShape {
+    const val DEFAULT_RADIUS = 16
+    const val LARGE_RADIUS = 28
+    const val NO_RADIUS = 0
+
+    fun getTileShape(type: AmbientMusicModeTileType): RoundedCornerShape {
+        return when (type) {
+            AmbientMusicModeTileType.DEFAULT -> RoundedCornerShape(DEFAULT_RADIUS.dp)
+            AmbientMusicModeTileType.START_TILE ->
+                RoundedCornerShape(topStart = LARGE_RADIUS.dp, topEnd = LARGE_RADIUS.dp)
+            AmbientMusicModeTileType.MIDDLE_TILE -> RoundedCornerShape(NO_RADIUS)
+            AmbientMusicModeTileType.END_TILE ->
+                RoundedCornerShape(bottomStart = LARGE_RADIUS.dp, bottomEnd = LARGE_RADIUS.dp)
+            AmbientMusicModeTileType.ONLY_TILE -> RoundedCornerShape(LARGE_RADIUS)
+        }
+    }
 }

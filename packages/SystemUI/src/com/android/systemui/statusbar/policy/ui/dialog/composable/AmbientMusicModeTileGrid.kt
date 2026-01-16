@@ -29,17 +29,40 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.android.systemui.statusbar.policy.ui.dialog.viewmodel.AmbientMusicModesDialogViewModel
 
 @Composable
-fun AmbientMusicModeTileGrid(viewModel: AmbientMusicModesDialogViewModel) {
+fun AmbientMusicModeTileGrid(
+    viewModel: AmbientMusicModesDialogViewModel,
+    modifier: Modifier = Modifier,
+    inDetailsView: Boolean = false,
+) {
     val tiles by viewModel.tiles.collectAsStateWithLifecycle(initialValue = emptyList())
+
+    val verticalSpacing = if (inDetailsView) 2.dp else 8.dp
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = Modifier.fillMaxWidth().heightIn(max = 280.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier.fillMaxWidth().heightIn(max = 280.dp),
+        verticalArrangement = Arrangement.spacedBy(verticalSpacing),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(tiles.size, key = { index -> tiles[index].id }) { index ->
-            AmbientMusicModeTile(viewModel = tiles[index])
+            AmbientMusicModeTile(
+                viewModel = tiles[index],
+                type = getAmbientMusicModeTileType(inDetailsView, index, tiles.size),
+            )
         }
+    }
+}
+
+fun getAmbientMusicModeTileType(inDetailsView: Boolean, index: Int, tilesSize: Int): AmbientMusicModeTileType {
+    return if (inDetailsView) {
+        if (tilesSize == 1) return AmbientMusicModeTileType.ONLY_TILE
+
+        when (index) {
+            0 -> AmbientMusicModeTileType.START_TILE
+            tilesSize - 1 -> AmbientMusicModeTileType.END_TILE
+            else -> AmbientMusicModeTileType.MIDDLE_TILE
+        }
+    } else {
+        AmbientMusicModeTileType.DEFAULT
     }
 }
