@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2025 The Android Open Source Project
+ * Copyright (C) 2026 StatiXOS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +17,23 @@
 
 package com.android.systemui.qs.tiles.dialog
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import com.android.systemui.res.R
 import com.android.systemui.statusbar.policy.ui.dialog.composable.AmbientMusicModeTileGrid
 
 @Composable
 fun AmbientMusicModesDetailsContent(viewModel: AmbientMusicModesDetailsViewModel) {
     // TODO(b/378513940): Finish implementing this function.
-    AmbientMusicModeTileGrid(viewModel = viewModel.viewModel)
+    AmbientMusicModeTileGrid(
+        viewModel = viewModel.viewModel,
+        modifier =
+            Modifier.padding(
+                horizontal = dimensionResource(R.dimen.tile_details_horizontal_padding),
+                vertical = dimensionResource(R.dimen.tile_details_vertical_padding),
+            ),
+        inDetailsView = true,
+    )
 }
