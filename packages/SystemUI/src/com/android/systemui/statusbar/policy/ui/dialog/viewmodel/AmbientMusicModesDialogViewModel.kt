@@ -23,6 +23,7 @@ import com.android.systemui.common.shared.model.Icon
 import com.android.systemui.dagger.SysUISingleton
 import com.android.systemui.dagger.qualifiers.Background
 import com.android.systemui.res.R
+import com.android.systemui.qs.tiles.impl.ambientmusicmodes.domain.interactor.AmbientMusicModesTileDataInteractor
 import com.android.systemui.statusbar.policy.ui.dialog.AmbientMusicModesDialogDelegate
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
@@ -41,6 +42,7 @@ constructor(
     val context: Context,
     @Background val bgDispatcher: CoroutineDispatcher,
     private val dialogDelegate: AmbientMusicModesDialogDelegate,
+    private val interactor: AmbientMusicModesTileDataInteractor,
 ) {
     private val _activeMode = MutableStateFlow<String?>(null)
 
@@ -59,9 +61,11 @@ constructor(
                         if (activeMode == "calm") {
                             startService(ACTION_TOGGLE_PLAYBACK_QS)
                             _activeMode.value = null
+                            interactor.setActiveMode(null)
                         } else {
                             startService(ACTION_PLAY_GENRE_CALM)
                             _activeMode.value = "calm"
+                            interactor.setActiveMode("calm")
                         }
                     },
                     onLongClick = {
@@ -81,9 +85,11 @@ constructor(
                         if (activeMode == "chill") {
                             startService(ACTION_TOGGLE_PLAYBACK_QS)
                             _activeMode.value = null
+                            interactor.setActiveMode(null)
                         } else {
                             startService(ACTION_PLAY_GENRE_CHILL)
                             _activeMode.value = "chill"
+                            interactor.setActiveMode("chill")
                         }
                     },
                     onLongClick = {
@@ -103,9 +109,11 @@ constructor(
                         if (activeMode == "sleep") {
                             startService(ACTION_TOGGLE_PLAYBACK_QS)
                             _activeMode.value = null
+                            interactor.setActiveMode(null)
                         } else {
                             startService(ACTION_PLAY_GENRE_SLEEP)
                             _activeMode.value = "sleep"
+                            interactor.setActiveMode("sleep")
                         }
                     },
                     onLongClick = {
@@ -125,9 +133,11 @@ constructor(
                         if (activeMode == "focus") {
                             startService(ACTION_TOGGLE_PLAYBACK_QS)
                             _activeMode.value = null
+                            interactor.setActiveMode(null)
                         } else {
                             startService(ACTION_PLAY_GENRE_FOCUS)
                             _activeMode.value = "focus"
+                            interactor.setActiveMode("focus")
                         }
                     },
                     onLongClick = {
