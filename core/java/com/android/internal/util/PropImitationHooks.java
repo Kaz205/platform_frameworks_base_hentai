@@ -61,18 +61,6 @@ public class PropImitationHooks {
             ComponentName.unflattenFromString(
                     "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
-    private static final Map<String, String> sPixelTenBetaProps =
-            Map.of(
-                    "PRODUCT", "mustang_beta",
-                    "DEVICE", "mustang",
-                    "HARDWARE", "mustang",
-                    "MANUFACTURER", "Google",
-                    "BRAND", "google",
-                    "MODEL", "Pixel 10 Pro XL",
-                    "ID", "ZP11.251212.007",
-                    "FINGERPRINT",
-                            "google/mustang_beta/mustang:CANARY/ZP11.251212.007/14649019:user/release-keys");
-
     private static final Map<String, String> sPixelOneProps = Map.of(
             "PRODUCT", "marlin",
             "DEVICE", "marlin",
@@ -83,17 +71,17 @@ public class PropImitationHooks {
             "FINGERPRINT", "google/marlin/marlin:10/QP1A.191005.007.A3/5972272:user/release-keys"
     );
 
-    private static final Map<String, String> sPixelTenProps =
+    private static final Map<String, String> sPixelNineProps =
             Map.of(
-                    "PRODUCT", "mustang",
-                    "DEVICE", "mustang",
-                    "HARDWARE", "mustang",
+                    "PRODUCT", "tokay",
+                    "DEVICE", "tokay",
+                    "HARDWARE", "tokay",
                     "MANUFACTURER", "Google",
                     "BRAND", "google",
-                    "MODEL", "Pixel 10 Pro XL",
+                    "MODEL", "Pixel 9",
                     "ID", "BP4A.251205.006",
                     "FINGERPRINT",
-                            "google/mustang/mustang:16/BP4A.251205.006/14401865:user/release-keys");
+                            "google/tokay/tokay:16/BP4A.260205.002.A1/14624750:user/release-keys");
 
     private static final Map<String, String> sPixelTabletProps =
             Map.of(
@@ -180,26 +168,19 @@ public class PropImitationHooks {
             case PACKAGE_SETUPWIZARD:
             case PACKAGE_SUBSCRIPTION_RED:
             case PACKAGE_VELVET:
+            case PACKAGE_GLASSES_COMPANION:
+            case PACKAGE_GLASSES_CORE:
                 if (sIsTablet) {
                     dlog("Spoofing Pixel Tablet for: " + packageName + " process: " + processName);
                     setProps(sPixelTabletProps);
                 } else {
                     dlog(
-                            "Spoofing Pixel 10 Pro XL for: "
+                            "Spoofing Pixel 9 for: "
                                     + packageName
                                     + " process: "
                                     + processName);
-                    setProps(sPixelTenProps);
+                    setProps(sPixelNineProps);
                 }
-                return;
-            case PACKAGE_GLASSES_COMPANION:
-            case PACKAGE_GLASSES_CORE:
-                dlog(
-                        "Spoofing Pixel 10 Pro XL (Beta) for: "
-                                + packageName
-                                + " process: "
-                                + processName);
-                setProps(sPixelTenBetaProps);
                 return;
             case PACKAGE_ARCORE:
                 if (!sStockFp.isEmpty()) {
