@@ -93,7 +93,7 @@ public class DisplayTransformManager {
 
     private static final float COLOR_SATURATION_NATURAL = 1.0f;
     private static final float COLOR_SATURATION_BOOSTED = 1.1f;
-    private static final float COLOR_SATURATION_SATURATED = 0.9f;
+    private static final float COLOR_SATURATION_SATURATED = 0.95f;
 
     /**
      * Display color modes defined by DisplayColorSetting in
